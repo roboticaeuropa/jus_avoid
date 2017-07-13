@@ -24,10 +24,10 @@ def callback(msg):
     #s.setTarget(dcho,speed)
 # END CALLBACK
 
-rospy.init_node('L_servo')
+rospy.init_node('L_servo_slave')
 
 # BEGIN SUBSCRIBER
-left = rospy.Subscriber('speed_left', Int32, callback)
+left = rospy.Subscriber('speed_left_slave', Int32, callback)
 #right = rospy.Subscriber('speed_right', Int32, callback)
 # END SUBSCRIBER
 

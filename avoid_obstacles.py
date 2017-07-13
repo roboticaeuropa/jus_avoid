@@ -28,7 +28,7 @@ fwFactor= 100
 turning = 1
 stopped= 0.5	
 # Node initialization
-rospy.init_node('control')
+rospy.init_node('control_slave')
 
 ############################################
 # BEGIN SUBSCRIBER: Sharp sensor
@@ -36,8 +36,8 @@ read_sharp = rospy.Subscriber('sharp_data', Int32, scan_callback)
 # END SUBSCRIBER
 ############################################
 # BEGIN PUB: left and right servos speed set
-write_left = rospy.Publisher('speed_left', Int32,queue_size=10)
-write_right = rospy.Publisher('speed_right', Int32,queue_size=10)
+write_left = rospy.Publisher('speed_left_slave', Int32,queue_size=10)
+write_right = rospy.Publisher('speed_right_slave', Int32,queue_size=10)
 # END PUB
 ############################################
 

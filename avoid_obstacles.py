@@ -10,7 +10,12 @@ dcho = 5
 # Threshold distance: below, change rotation wheel
 min_dist= 23.1 # Corresponding to an output of 250 from Sharp sensor
 
-
+# SPEED CONTROL
+zero= 6000 # STOPPED
+speed= 600 # REFERENCE SPEED
+desv=       -0.13*speed
+spin= 300 # ROTATION SPEED
+desv_spin=  -0.13*spin
 
 # BEGIN CALLBACK
 def scan_callback(msg):
@@ -66,24 +71,24 @@ while not rospy.is_shutdown():
         #SEND MOTION COMMANDS
         if state_change:
                 # Stop the motors and wait some time before commanding them to move again
-                speed_L=0
-                speed_R=0
+                speed_L= 0 #zero # 0
+                speed_R= 0 #zero # 0
                 write_left.publish(speed_L)
-	write_right.publish(speed_R)
+                write_right.publish(speed_R)
 	rospy.sleep(stopped)
 	state_change = False
 
         if driving_forward:
                 # GO AHEAD since there is no obstacle
-                speed_L=-1
-                speed_R=1
+                speed_L= + (speed-desv) #-1
+                speed_R= - (speed-desv) # 1
         else:
                 # TURN 'clockwise' since there is an obstacle
-                speed_L=-1
-                speed_R=-1
+                speed_L= + (spin-desv_spin) # -1
+                speed_R= + (spin-desv_spin) #-1
 
-        write_left.publish(speed_L)
-        write_right.publish(speed_R)
+        write_left.publish(speed_L + zero)
+        write_right.publish(speed_R + zero)
         print "Distance = ", g_sharp_ahead
         print "LEFT motor speed=   ", speed_L
         print "RIGHT motor speed= ", speed_R

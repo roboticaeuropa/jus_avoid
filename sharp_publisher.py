@@ -19,9 +19,9 @@ from std_msgs.msg import Int32
 # Maestro channel assignment
 sharp=0
 # Sharp equation coefficients: dist(cm)= a / (Output-b) - c
-a= 5788
-b= 8.44
-c= 0.89
+a= 4350.3 # 5788
+b= 33.4 # 8.44
+c= -0.30 # 0.89
 # Used for rospy.Rate (should equal or muliple of rate in 'control' node)
 cycle = 0.5
 
